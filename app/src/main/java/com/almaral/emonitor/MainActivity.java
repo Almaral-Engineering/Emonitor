@@ -14,14 +14,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Hola");
-        arrayList.add("Adios");
-        arrayList.add("Como");
-        arrayList.add("Estás");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
+        ListView earthquakeListView = (ListView) findViewById(R.id.earthquake_list_view);
+        ArrayList<String> countriesList = new ArrayList<>();
 
-        listView.setAdapter(arrayAdapter);
+        countriesList.add("México");
+        countriesList.add("Venezuela");
+        countriesList.add("Colombia");
+        countriesList.add("España");
+        countriesList.add("Perú");
+
+        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countriesList);
+        earthquakeListView.setAdapter(countriesAdapter);
     }
 }

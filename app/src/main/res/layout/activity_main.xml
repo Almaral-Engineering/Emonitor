@@ -11,7 +11,7 @@
     tools:context="com.almaral.emonitor.MainActivity">
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/earthquake_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </RelativeLayout>
