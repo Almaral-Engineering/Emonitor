@@ -2,7 +2,6 @@ package com.almaral.emonitor;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,15 +14,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ListView earthquakeListView = (ListView) findViewById(R.id.earthquake_list_view);
-        ArrayList<String> countriesList = new ArrayList<>();
+        ArrayList<Earthquake> eqList = new ArrayList<>();
 
-        countriesList.add("México");
-        countriesList.add("Venezuela");
-        countriesList.add("Colombia");
-        countriesList.add("España");
-        countriesList.add("Perú");
+        eqList.add(new Earthquake("4.6", "97 km S of Wonosari, Indonesia"));
+        eqList.add(new Earthquake("2.3", "16 km S of Joshua Tree, CA"));
+        eqList.add(new Earthquake("3.1", "97 km S of Wonosari, Indonesia"));
 
-        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countriesList);
-        earthquakeListView.setAdapter(countriesAdapter);
+        EqAdapter eqAdapter = new EqAdapter(this, R.layout.eq_list_item, eqList);
+        earthquakeListView.setAdapter(eqAdapter);
     }
 }
