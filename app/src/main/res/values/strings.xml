@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">E-Monitor</string>
+    <string name="download_eartquakes_network_error">Hubo un error al descargar los datos de terremotos</string>
 </resources>
