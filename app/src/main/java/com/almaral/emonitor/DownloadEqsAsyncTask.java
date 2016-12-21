@@ -1,7 +1,6 @@
 package com.almaral.emonitor;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +11,12 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, String> {
+
+    public DownloadEqsInterface delegate;
+
+    public interface DownloadEqsInterface {
+        void onEqsDownloaded(String eqsData);
+    }
 
     @Override
     protected String doInBackground(URL... urls) {
@@ -27,10 +32,10 @@ public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected void onPostExecute(String eqData) {
+        super.onPostExecute(eqData);
 
-        Log.d("MANZANA", s);
+        delegate.onEqsDownloaded(eqData);
     }
 
     private String downloadData(URL url) throws IOException {
