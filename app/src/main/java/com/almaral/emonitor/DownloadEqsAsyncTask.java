@@ -2,6 +2,10 @@ package com.almaral.emonitor;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,33 +13,57 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
-public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, String> {
+public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, ArrayList<Earthquake>> {
 
     public DownloadEqsInterface delegate;
 
     public interface DownloadEqsInterface {
-        void onEqsDownloaded(String eqsData);
+        void onEqsDownloaded(ArrayList<Earthquake> eqList);
     }
 
     @Override
-    protected String doInBackground(URL... urls) {
-        String eqData = "";
+    protected ArrayList<Earthquake> doInBackground(URL... urls) {
+        String eqData;
+        ArrayList<Earthquake> eqList = null;
 
         try {
             eqData = downloadData(urls[0]);
+            eqList = parseDataFromJson(eqData);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return eqData;
+        return eqList;
     }
 
     @Override
-    protected void onPostExecute(String eqData) {
-        super.onPostExecute(eqData);
+    protected void onPostExecute(ArrayList<Earthquake> eqList) {
+        super.onPostExecute(eqList);
 
-        delegate.onEqsDownloaded(eqData);
+        delegate.onEqsDownloaded(eqList);
+    }
+
+    private ArrayList<Earthquake> parseDataFromJson(String eqsData) {
+        ArrayList<Earthquake> eqList = new ArrayList<>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(eqsData);
+            JSONArray featuresJsonArray = jsonObject.getJSONArray("features");
+
+            for (int i = 0 ; i < featuresJsonArray.length() ; i++) {
+                JSONObject featuresJsonObject = featuresJsonArray.getJSONObject(i);
+                JSONObject propertiesJsonObject = featuresJsonObject.getJSONObject("properties");
+                Double magnitude = propertiesJsonObject.getDouble("mag");
+                String place = propertiesJsonObject.getString("place");
+                eqList.add(new Earthquake(magnitude, place));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return eqList;
     }
 
     private String downloadData(URL url) throws IOException {

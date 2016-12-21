@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,31 +26,14 @@ public class MainActivity extends AppCompatActivity implements DownloadEqsAsyncT
         DownloadEqsAsyncTask downloadEqsAsyncTask = new DownloadEqsAsyncTask();
         downloadEqsAsyncTask.delegate = this;
         try {
-            downloadEqsAsyncTask.execute(new URL("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"));
+            downloadEqsAsyncTask.execute(new URL(getString(R.string.usgs_all_hour_earthquakes_url)));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onEqsDownloaded(String eqsData) {
-        ArrayList<Earthquake> eqList = new ArrayList<>();
-
-        try {
-            JSONObject jsonObject = new JSONObject(eqsData);
-            JSONArray featuresJsonArray = jsonObject.getJSONArray("features");
-
-            for (int i = 0 ; i < featuresJsonArray.length() ; i++) {
-                JSONObject featuresJsonObject = featuresJsonArray.getJSONObject(i);
-                JSONObject propertiesJsonObject = featuresJsonObject.getJSONObject("properties");
-                Double magnitude = propertiesJsonObject.getDouble("mag");
-                String place = propertiesJsonObject.getString("place");
-                eqList.add(new Earthquake(magnitude, place));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+    public void onEqsDownloaded(ArrayList<Earthquake> eqList) {
         final EqAdapter eqAdapter = new EqAdapter(this, R.layout.eq_list_item, eqList);
         earthquakeListView.setAdapter(eqAdapter);
 
