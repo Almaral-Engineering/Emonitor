@@ -45,7 +45,7 @@ public class EqAdapter extends ArrayAdapter<Earthquake> {
 
         Earthquake earthquake = eqList.get(position);
 
-        holder.magnitudeTextView.setText(earthquake.getMagnitude());
+        holder.magnitudeTextView.setText(String.valueOf(earthquake.getMagnitude()));
         holder.placeTextView.setText(earthquake.getPlace());
 
         return convertView;
