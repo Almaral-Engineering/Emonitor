@@ -2,7 +2,12 @@ package com.almaral.emonitor;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,5 +41,19 @@ public class MainActivity extends AppCompatActivity implements DownloadEqsAsyncT
 
     @Override
     public void onEqsDownloaded(String eqsData) {
+        try {
+            JSONObject jsonObject = new JSONObject(eqsData);
+            JSONArray featuresJsonArray = jsonObject.getJSONArray("features");
+
+            for (int i = 0 ; i < featuresJsonArray.length() ; i++) {
+                JSONObject featuresJsonObject = featuresJsonArray.getJSONObject(i);
+                JSONObject propertiesJsonObject = featuresJsonObject.getJSONObject("properties");
+                Double magnitude = propertiesJsonObject.getDouble("mag");
+                String place = propertiesJsonObject.getString("place");
+                Log.d("MANZANA", magnitude + " : " + place);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
