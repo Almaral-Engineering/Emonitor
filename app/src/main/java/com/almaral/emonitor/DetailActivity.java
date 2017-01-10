@@ -17,7 +17,11 @@ public class DetailActivity extends AppCompatActivity {
         Earthquake earthquake = extras.getParcelable(MainActivity.SELECTED_EARTHQUAKE);
 
         if (earthquake != null) {
-            eqDetailTextView.setText(earthquake.getMagnitude() + " : " + earthquake.getPlace());
+            eqDetailTextView.setText(earthquake.getDateTime() +
+                    "\nMag: " + earthquake.getMagnitude() +
+                    "\nPlace : " + earthquake.getPlace() +
+                    "\nLon: " + earthquake.getLongitude() +
+                    "\nLat: " + earthquake.getLatitude());
         }
     }
 }
