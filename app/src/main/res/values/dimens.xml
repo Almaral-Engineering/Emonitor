@@ -7,4 +7,10 @@
     <dimen name="detail_view_magnitude_text_size">72sp</dimen>
     <dimen name="detail_view_richter_text_size">24sp</dimen>
     <dimen name="detail_view_layout_vertical_margin">16dp</dimen>
+    <dimen name="detail_activity_icon_right_margin">32dp</dimen>
+    <dimen name="detail_activity_latitude_margin_top">8dp</dimen>
+    <dimen name="detail_activity_vertical_padding">8dp</dimen>
+    <dimen name="detail_activity_view_height">1dp</dimen>
+    <dimen name="detail_activity_view_margin_top">4dp</dimen>
+    <dimen name="detail_view_magnitude_layout_bottom_padding">32dp</dimen>
 </resources>

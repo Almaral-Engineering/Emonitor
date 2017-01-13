@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/detail_view_magnitude_layout_vertical_padding"
-        android:paddingBottom="32dp"
+        android:paddingBottom="@dimen/detail_view_magnitude_layout_bottom_padding"
         android:paddingLeft="@dimen/detail_view_layout_horizontal_padding"
         android:paddingRight="@dimen/detail_view_layout_horizontal_padding"
         android:orientation="horizontal">
@@ -28,7 +28,7 @@
             android:textSize="@dimen/detail_view_magnitude_text_size"
             android:layout_gravity="bottom"
             android:textColor="@color/colorPrimaryDark"
-            tools:text="4.6"/>
+            tools:text="6.6"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -51,7 +51,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="@dimen/detail_activity_icon_right_margin"
+            android:layout_marginEnd="@dimen/detail_activity_icon_right_margin"
             android:src="@drawable/ic_place"
             android:layout_gravity="center_vertical"/>
 
@@ -84,7 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/detail_activity_latitude_margin_top"
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
 
@@ -104,8 +105,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="@dimen/detail_activity_view_height"
+                android:layout_marginTop="@dimen/detail_activity_view_margin_top"
                 android:background="@color/silver"/>
 
         </LinearLayout>
@@ -122,7 +123,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="@dimen/detail_activity_icon_right_margin"
+            android:layout_marginEnd="@dimen/detail_activity_icon_right_margin"
             android:src="@drawable/ic_warning"
             android:layout_gravity="center_vertical"/>
 
@@ -136,13 +138,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="97 Km S of Wonosari, Indonesia"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"/>
+                android:paddingTop="@dimen/detail_activity_vertical_padding"
+                android:paddingBottom="@dimen/detail_activity_vertical_padding"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="@dimen/detail_activity_view_height"
+                android:layout_marginTop="@dimen/detail_activity_view_margin_top"
                 android:background="@color/silver"/>
 
         </LinearLayout>
@@ -159,7 +161,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="@dimen/detail_activity_icon_right_margin"
+            android:layout_marginEnd="@dimen/detail_activity_icon_right_margin"
             android:src="@drawable/ic_watch"
             android:layout_gravity="center_vertical"/>
 
@@ -173,13 +176,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="17 de Noviembre - 16:29-37"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"/>
+                android:paddingTop="@dimen/detail_activity_vertical_padding"
+                android:paddingBottom="@dimen/detail_activity_vertical_padding"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="@dimen/detail_activity_view_height"
+                android:layout_marginTop="@dimen/detail_activity_view_margin_top"
                 android:background="@color/silver"/>
 
         </LinearLayout>
