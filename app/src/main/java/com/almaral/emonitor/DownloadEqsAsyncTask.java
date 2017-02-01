@@ -1,5 +1,8 @@
 package com.almaral.emonitor;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
@@ -18,6 +21,11 @@ import java.util.ArrayList;
 public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, ArrayList<Earthquake>> {
 
     public DownloadEqsInterface delegate;
+    private Context context;
+
+    DownloadEqsAsyncTask(Context context) {
+        this.context = context;
+    }
 
     public interface DownloadEqsInterface {
         void onEqsDownloaded(ArrayList<Earthquake> eqList);
@@ -31,6 +39,7 @@ public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, ArrayList<Earthqu
         try {
             eqData = downloadData(urls[0]);
             eqList = parseDataFromJson(eqData);
+            saveEqsOnDatabase(eqList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,6 +52,22 @@ public class DownloadEqsAsyncTask extends AsyncTask<URL, Void, ArrayList<Earthqu
         super.onPostExecute(eqList);
 
         delegate.onEqsDownloaded(eqList);
+    }
+
+    private void saveEqsOnDatabase(ArrayList<Earthquake> eqList) {
+        EqDbHelper dbHelper = new EqDbHelper(context);
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+        for (Earthquake earthquake : eqList) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(EqContract.EqColumns.MAGNITUDE, earthquake.getMagnitude());
+            contentValues.put(EqContract.EqColumns.PLACE, earthquake.getPlace());
+            contentValues.put(EqContract.EqColumns.TIMESTAMP, earthquake.getDateTime());
+            contentValues.put(EqContract.EqColumns.LATITUDE, earthquake.getLatitude());
+            contentValues.put(EqContract.EqColumns.LONGITUDE, earthquake.getLongitude());
+
+            database.insert(EqContract.EqColumns.TABLE_NAME, null, contentValues);
+        }
     }
 
     private ArrayList<Earthquake> parseDataFromJson(String eqsData) {
