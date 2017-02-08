@@ -1,6 +1,8 @@
 package com.almaral.emonitor;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,6 +25,37 @@ public class MainActivity extends AppCompatActivity implements DownloadEqsAsyncT
 
         earthquakeListView = (ListView) findViewById(R.id.earthquake_list_view);
 
+        if (Utils.isNetworkAvailable(this)) {
+            downloadEarthquakes();
+        } else {
+            getEarthquakesFromDb();
+        }
+    }
+
+    private void getEarthquakesFromDb() {
+        EqDbHelper eqDbHelper = new EqDbHelper(this);
+        SQLiteDatabase database = eqDbHelper.getReadableDatabase();
+
+        Cursor cursor = database.query(EqContract.EqColumns.TABLE_NAME, null, null, null, null, null, null);
+
+        ArrayList<Earthquake> eqList = new ArrayList<>();
+
+        while(cursor.moveToNext()) {
+            Long dateTime = cursor.getLong(EqContract.EqColumns.TIMESTAMP_COLUMN_INDEX);
+            Double magnitude = cursor.getDouble(EqContract.EqColumns.MAGNITUDE_COLUMN_INDEX);
+            String place = cursor.getString(EqContract.EqColumns.PLACE_COLUMN_INDEX);
+            String longitude = cursor.getString(EqContract.EqColumns.LONGITUDE_COLUMN_INDEX);
+            String latitude= cursor.getString(EqContract.EqColumns.LATITUDE_COLUMN_INDEX);
+
+            eqList.add(new Earthquake(dateTime, magnitude, place, longitude, latitude));
+        }
+
+        cursor.close();
+
+        fillEqList(eqList);
+    }
+
+    private void downloadEarthquakes() {
         DownloadEqsAsyncTask downloadEqsAsyncTask = new DownloadEqsAsyncTask(this);
         downloadEqsAsyncTask.delegate = this;
         try {
@@ -34,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements DownloadEqsAsyncT
 
     @Override
     public void onEqsDownloaded(ArrayList<Earthquake> eqList) {
+        fillEqList(eqList);
+    }
+
+    private void fillEqList(ArrayList<Earthquake> eqList) {
         final EqAdapter eqAdapter = new EqAdapter(this, R.layout.eq_list_item, eqList);
         earthquakeListView.setAdapter(eqAdapter);
 

@@ -12,5 +12,11 @@ public class EqContract {
         public static final String LONGITUDE = "longitude";
         public static final String LATITUDE = "latitude";
         public static final String TIMESTAMP = "timestamp";
+
+        public static final int MAGNITUDE_COLUMN_INDEX = 1;
+        public static final int PLACE_COLUMN_INDEX = 2;
+        public static final int LONGITUDE_COLUMN_INDEX = 3;
+        public static final int LATITUDE_COLUMN_INDEX = 4;
+        public static final int TIMESTAMP_COLUMN_INDEX = 5;
     }
 }

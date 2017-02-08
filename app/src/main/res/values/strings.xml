@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">E-Monitor</string>
     <string name="download_eartquakes_network_error">Hubo un error al descargar los datos de terremotos</string>
-    <string name="usgs_all_hour_earthquakes_url">"http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"</string>
+    <string name="usgs_all_hour_earthquakes_url">http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson</string>
     <string name="richter">Richter</string>
     <string name="longitude">Longitud</string>
     <string name="latitude">Latitud</string>

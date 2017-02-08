@@ -22,7 +22,7 @@ public class EqDbHelper extends SQLiteOpenHelper {
                 EqContract.EqColumns.PLACE + " TEXT NOT NULL," +
                 EqContract.EqColumns.LONGITUDE + " TEXT NOT NULL," +
                 EqContract.EqColumns.LATITUDE + " TEXT NOT NULL," +
-                EqContract.EqColumns.TIMESTAMP + " TEXT NOT NULL," +
+                EqContract.EqColumns.TIMESTAMP + " TEXT NOT NULL" +
                 ")";
 
         sqLiteDatabase.execSQL(EARTHQUAKES_DATABASE);
